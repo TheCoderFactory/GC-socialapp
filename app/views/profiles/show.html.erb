@@ -1,0 +1,64 @@
+<p id="notice"><%= notice %></p>
+<div class="row">
+	<div class="col-md-4">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<p class="panel-title"><%= @profile.first_name %> <%= @profile.last_name %></p>
+			</div>
+			<div class="panel-body">
+				<p>
+				  <strong>Email:</strong>
+				  <%= @user.email %>
+				</p>
+
+				<p>
+				  <strong>Hobbies:</strong>
+				  <%= @profile.hobbies %>
+				</p>
+
+				<p>
+				  <strong>Starsign:</strong>
+				  <%= @profile.starsign %>
+				</p>
+
+				<% if @profile.user.groups.count > 0 %>
+					<h3>Groups</h3>
+					<% @profile.user.groups.each do |group| %>
+						<p><%= link_to group.name, group %></p>
+					<% end %>
+				<% end %>
+			</div>
+		</div>
+
+	</div>
+<% if current_user == @profile.user %>
+	<div class="col-md-4">
+		<%= render 'posts/form' %>
+	</div>
+<% end %>
+
+	<div class="col-md-4">
+	<% if @posts.count == 0 %>
+		<p>No posts yet</p>
+	<% else %>
+		<hr>
+		<% @posts.each do |post| %>
+			<p><strong><%= post.title %></strong> by <small><%= post.user.profile.first_name %></small></p>
+			<p><%= post.content %></p>
+
+		<% end %>
+	<% end %>
+	</div>
+</div>
+
+
+
+<% if current_user.profile == @profile %>
+	<%= link_to 'Edit', edit_profile_path(@profile) %>
+<% end %>
+
+
+
+
+
+

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Socialapp</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+	<nav class="navbar navbar-static-top navbar-inverse">
+		<div class="container-fluid">
+			<ul class="nav navbar-nav">
+				<li><%= link_to 'Home', root_path %></li>
+				<% if user_signed_in? and current_user.profile %>
+					<li><%= link_to 'My profile', profile_path(current_user.profile) %></li>
+				<% end %>
+				<% if user_signed_in? %>
+					<li><%= link_to "Sign out", destroy_user_session_path, method: :delete %></li>
+				<% else %>
+					<li><%= link_to "Sign in", new_user_session_path %></li>
+				<% end %>
+				<li><a href="/users/sign_in">Sign in</a></li>
+			</ul>
+		</div>
+	</nav>
+<div class="container">
+	<%= yield %>
+</div>
+</body>
+</html>

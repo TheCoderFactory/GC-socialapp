@@ -1,0 +1,36 @@
+<h1>Welcome to our social app</h1>
+
+<% if user_signed_in? %>
+	<% if !current_user.profile %>
+		<%= link_to "Create your profile", new_profile_path, class: 'btn btn-primary' %>
+	<% end %>
+<% end %>
+
+<h3>Posts</h3>
+<hr>
+<% @posts.each do |post| %>
+	<p>
+		<strong>
+			<%= post.title %>
+		</strong>
+		 by 
+		 <small>
+		 		<%= post.user.profile.first_name %>
+		 		 on
+		 		 <%= post.created_at.strftime('%d %B %Y') %>
+		 		 at
+		 		 
+		 </small>
+
+	</p>
+	<p><%= post.content %></p>
+<% end %>
+
+<hr>
+<h3>Profiles</h3>
+<ul>
+<% @profiles.each do |profile| %>
+	<li><%= link_to profile.first_name + ' ' + profile.last_name, profile_path(profile) %></li>
+<% end %>
+</ul>
+
